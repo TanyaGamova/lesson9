@@ -120,6 +120,7 @@ public class MyCollection<E> implements Collection<E> {
     private class MyIterator<T> implements Iterator<T> {
 
         int cursor = 0;
+        T current = null;
 
         @Override
         public boolean hasNext() {
@@ -132,12 +133,15 @@ public class MyCollection<E> implements Collection<E> {
             if(cursor >= size){
                 throw new NoSuchElementException();
             }
-            return (T) elementData[cursor++];
+            return current = (T) elementData[cursor++];
         }
 
         @Override
         public void remove() {
-            throw new UnsupportedOperationException("remove");
+            if ( current == null ) {
+                throw new IllegalStateException();
+            }
+            MyCollection.this.remove( current );
         }
     }
 }
