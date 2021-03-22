@@ -55,6 +55,9 @@ public class MyCollection<E> implements Collection<E> {
                 a[i] = (T) elementData[i];
             }
         }
+        else {
+            a = (T[]) Arrays.copyOf(elementData, size);
+        }
         return a;
     }
 
